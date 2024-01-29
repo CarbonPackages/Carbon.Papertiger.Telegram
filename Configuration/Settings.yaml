@@ -1,0 +1,21 @@
+Neos:
+  Neos:
+    fusion:
+      autoInclude:
+        Carbon.PaperTiger.Telegram: true
+    userInterface:
+      translation:
+        autoInclude:
+          Carbon.PaperTiger.Telegram:
+            - 'NodeTypes/*'
+
+Carbon:
+  PaperTiger:
+    Telegram:
+      allowableTags: '<b><strong><i><em><u><ins><s><del><strike><a><tg-spoiler><tg-emoji><code><pre><blockquote><br>'
+      apiUrl: 'https://api.telegram.org'
+      apiKey: null
+      chatId: null
+      requestOptions:
+        disable_web_page_preview: false
+        parse_mode: HTML

@@ -1,0 +1,29 @@
+prototype(Carbon.PaperTiger.Telegram:Action.Definition) < prototype(Neos.Fusion:Component) {
+    text = ${q(node).property('message')}
+    text.@process {
+        asTemplate = Sitegeist.PaperTiger:Action.DataTemplate
+        convertUris = Neos.Neos:ConvertUris {
+            absolute = true
+            forceConversion = true
+        }
+    }
+
+    config = ${Configuration.Setting('Carbon.PaperTiger.Telegram')}
+    apiKey = ${q(node).property('apiKey') || this.config.apiKey}
+    chatId = ${q(node).property('chatId') || this.config.chatId}
+    apiUrl = ${this.config.apiUrl}
+    requestOptions = ${this.config.requestOptions}
+    allowableTags = ${this.config.allowableTags}
+
+    renderer = Sitegeist.PaperTiger:Action {
+        @if.minRequirementsAreMet = ${props.apiKey && props.chatId && props.text}
+        type = 'Carbon.PaperTiger.Telegram:SendMessage'
+        options {
+            apiUrl = ${props.apiUrl}
+            requestOptions = ${props.requestOptions}
+            apiKey = ${props.apiKey}
+            chatId = ${props.chatId}
+            text = ${String.stripTags(props.text, props.allowableTags)}
+        }
+    }
+}

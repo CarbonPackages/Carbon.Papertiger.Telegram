@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2"
+    xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file original="" product-name="Carbon.PaperTiger.Telegram" source-language="en" target-language="de" datatype="plaintext">
+        <body>
+            <trans-unit id="ui.label" xml:space="preserve">
+                <source>Send message to Telegram</source>
+                <target>Nachricht über Telegram senden</target>
+            </trans-unit>
+            <trans-unit id="properties.message" xml:space="preserve">
+                <source>Message</source>
+                <target>Nachricht</target>
+            </trans-unit>
+            <trans-unit id="properties.apiKey" xml:space="preserve">
+                <source>API Key</source>
+                <target>API Key</target>
+            </trans-unit>
+            <trans-unit id="properties.chatId" xml:space="preserve">
+                <source>Chat ID</source>
+                <target>Chat ID</target>
+            </trans-unit>
+            <trans-unit id="configuration.missing" xml:space="preserve">
+                <source>The following configuration is missing: {0}</source>
+                <target>Die folgende Konfiguration fehlt: {0}</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

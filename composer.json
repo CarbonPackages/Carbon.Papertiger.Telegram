@@ -1,0 +1,26 @@
+{
+    "name": "carbon/papertiger-telegram",
+    "description": "Add Telegram finisher to Sitegeist.PaperTiger",
+    "license": "GPL-3.0+",
+    "type": "neos-carbon",
+    "keywords": [
+        "flow",
+        "neos",
+        "form",
+        "telegram",
+        "papertiger"
+    ],
+    "require": {
+        "sitegeist/papertiger": "^0.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Carbon\\PaperTiger\\Telegram\\": "Classes"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Carbon.PaperTiger.Telegram"
+        }
+    }
+}

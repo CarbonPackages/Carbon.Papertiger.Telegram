@@ -1,0 +1,37 @@
+prototype(Carbon.PaperTiger.Telegram:Action.Preview) < prototype(Neos.Fusion:Component) {
+    config = ${Configuration.Setting('Carbon.PaperTiger.Telegram')}
+    text = ${q(node).property('message')}
+    apiKey = ${q(node).property('apiKey')}
+    chatId = ${q(node).property('chatId')}
+    allowableTags = ${this.config.allowableTags}
+
+    @private {
+        messageText = ${Translation.translate('properties.message', 'Message', [], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram')}
+        requiredFields = Neos.Fusion:DataStructure {
+            text = ${private.messageText}
+            text.@if.isMissing = ${!props.text}
+
+            apiKey = ${Translation.translate('properties.apiKey', 'API Key', [], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram')}
+            apiKey.@if.isMissing = ${!props.apiKey && !props.config.apiKey}
+
+            chatId = ${Translation.translate('properties.chatId', 'Chat ID', [], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram')}
+            chatId.@if.isMissing = ${!props.chatId && !props.config.chatId}
+        }
+    }
+
+    renderer = afx`
+        <p @if={private.requiredFields} class="papertiger-action-telegram__error">
+            <strong>
+                {Translation.translate('configuration.missing', 'The following configuration is missing: {0}', [Array.join(private.requiredFields, ', ')], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram')}
+            </strong>
+        </p>
+        <dl class="papertiger-action-email__list">
+            <dt @if={props.text}>{private.messageText}</dt>
+            <dd @if={props.text}>{String.stripTags(props.text, props.allowableTags)}</dd>
+            <dt @if={props.apiKey}>API Key</dt>
+            <dd @if={props.apiKey}>{props.apiKey}</dd>
+            <dt @if={props.chatId}>Chat ID</dt>
+            <dd @if={props.chatId}>{props.chatId}</dd>
+        </dl>
+    `
+}
