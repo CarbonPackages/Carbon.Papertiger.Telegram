@@ -6,31 +6,34 @@ prototype(Carbon.PaperTiger.Telegram:Action.Preview) < prototype(Neos.Fusion:Com
     allowableTags = ${this.config.allowableTags}
 
     @private {
-        messageText = ${Translation.translate('properties.message', 'Message', [], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram')}
+        interfaceLanguage = ${Neos.Backend.interfaceLanguage()}
+        message = ${Translation.translate('properties.message', 'Message', [], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram', null, private.interfaceLanguage)}
+        apiKey = ${Translation.translate('properties.apiKey', 'API Key', [], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram', null, private.interfaceLanguage)}
+        chatId = ${Translation.translate('properties.chatId', 'Chat ID', [], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram', null, private.interfaceLanguage)}
         requiredFields = Neos.Fusion:DataStructure {
-            text = ${private.messageText}
+            text = ${private.message}
             text.@if.isMissing = ${!props.text}
 
-            apiKey = ${Translation.translate('properties.apiKey', 'API Key', [], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram')}
+            apiKey = ${private.apiKey}
             apiKey.@if.isMissing = ${!props.apiKey && !props.config.apiKey}
 
-            chatId = ${Translation.translate('properties.chatId', 'Chat ID', [], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram')}
+            chatId = ${private.chatId}
             chatId.@if.isMissing = ${!props.chatId && !props.config.chatId}
         }
     }
 
     renderer = afx`
-        <p @if={private.requiredFields} class="papertiger-action-telegram__error">
+        <p @if={Array.length(private.requiredFields)} class="papertiger-action-telegram__error">
             <strong>
-                {Translation.translate('configuration.missing', 'The following configuration is missing: {0}', [Array.join(private.requiredFields, ', ')], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram')}
+                {Translation.translate('configuration.missing', 'The following configuration is missing: {0}', [Array.join(private.requiredFields, ', ')], 'NodeTypes/Action', 'Carbon.PaperTiger.Telegram', null, private.interfaceLanguage)}
             </strong>
         </p>
         <dl class="papertiger-action-email__list">
-            <dt @if={props.text}>{private.messageText}</dt>
+            <dt @if={props.text}>{private.message}</dt>
             <dd @if={props.text}>{String.stripTags(props.text, props.allowableTags)}</dd>
-            <dt @if={props.apiKey}>API Key</dt>
+            <dt @if={props.apiKey}>{private.apiKey}</dt>
             <dd @if={props.apiKey}>{props.apiKey}</dd>
-            <dt @if={props.chatId}>Chat ID</dt>
+            <dt @if={props.chatId}>{private.chatId}</dt>
             <dd @if={props.chatId}>{props.chatId}</dd>
         </dl>
     `
