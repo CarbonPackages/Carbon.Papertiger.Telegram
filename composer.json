@@ -11,7 +11,7 @@
         "papertiger"
     ],
     "require": {
-        "sitegeist/papertiger": "^0.7"
+        "sitegeist/papertiger": "^0.7 || ^0.8"
     },
     "autoload": {
         "psr-4": {
